@@ -1,0 +1,61 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+import Logo from '../assets/logo.svg'
+import { RxHamburgerMenu } from "react-icons/rx";
+import { IoIosSearch } from "react-icons/io";
+import { MdFavoriteBorder, MdOutlineReceiptLong, MdShoppingCart } from "react-icons/md";
+import Avatar from "../assets/avatar.png"
+import { IoIosArrowDown } from "react-icons/io";
+
+const Header = ({ cartCount = 0, onOpenCart, onGoHome }) => {
+  return (
+    <div className='container'>
+        <div className="logo" onClick={() => onGoHome && onGoHome()} style={{cursor:'pointer'}}>
+            <img src={Logo} alt="логотип" />
+            <p className="logo">СЕВЕРЯНОЧКА</p>
+        </div>
+        <a href="#" className="catalog">
+        <RxHamburgerMenu />
+        <p>Каталог</p>
+        </a>
+    
+        <form className="search">
+        <input type="text" 
+        placeholder='Найти товар'
+        className='search-input'
+        />
+        <IoIosSearch size={20}/>
+        </form>
+       <div className="menu">
+       <a href="#" className='private'>
+        <MdFavoriteBorder size={28}/>
+        <p>Избранное</p>
+        </a>
+        <a href="#">
+        <MdOutlineReceiptLong size={28}/>
+        <p>Заказы</p>
+        </a>
+        <a href="#" className="cart-link" onClick={(e) => { e.preventDefault(); onOpenCart && onOpenCart(); }}>
+            <div className="cart-icon-wrap">
+              <MdShoppingCart size={28}/>
+              {cartCount > 0 && (
+                <span className="cart-badge">{cartCount}</span>
+              )}
+            </div>
+            <p>Корзина</p>
+        </a>
+       </div>
+        <Link to="/admin" className="profile">
+            <div className="user-profile">
+                <div className="profile-info">
+                <img src={Avatar} alt="user_avatar" />
+                <p>Алексей</p>
+                </div>
+                <IoIosArrowDown />
+            </div>
+        </Link>
+    </div>
+  );
+};
+
+export default Header;
